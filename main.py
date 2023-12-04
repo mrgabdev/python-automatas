@@ -1,6 +1,10 @@
+from tracemalloc import start
 from flask import Flask, render_template, request
 from ply import lex
 import re
+from sympy import Array
+from transformers import pipeline
+
 
 app = Flask(__name__)
 
@@ -93,15 +97,32 @@ def sintactic_page():
     return str(cadena_sintactica)
 
 
+def analyze_semantics(text):
+    sentiment_analyzer = pipeline(
+        "sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment"
+    )
+    result = sentiment_analyzer(text)
+
+    starts = [label["label"] for label in result]
+    rating = starts[0].split(" ")[0]
+
+    return rating
+
+
+feelings = {"1": "😡", "2" :"😠 ","3": "😐", "4": "😃", "5": "😄"}
+
+
 @app.route("/", methods=["GET", "POST"])
 def homepage():
-    cadenaProcesada = None
+    entrada = None
+    stars = None
     if request.method == "POST":
         entrada = request.form.get("entrada")
-        cadenaProcesada = procesarCadena(entrada)
+        score = analyze_semantics(entrada)
+        stars = feelings[score]
 
     return render_template(
-        "index.html", title="Analizador Semántico", cadenaProcesada=cadenaProcesada
+        "index.html", title="Analizador Semántico", entrada=entrada, stars=stars
     )
 
 
