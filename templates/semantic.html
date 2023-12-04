@@ -1,4 +1,4 @@
-<!-- index.html -->
+<!-- semantic.html -->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,7 +9,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <!-- Custom CSS for styling -->
   <link rel="stylesheet" href="styles.css">
@@ -44,17 +44,15 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
       </div>
     </nav>
 
-    <!-- Content section for lexical analyzer -->
-    <div class="content">
-      <!-- Heading for lexical content -->
-      <h1>Contenido Léxico</h1>
-      <!-- Form for lexical analysis -->
-      <div class="form-container">
+    <!-- Heading for semantic content -->
+    <h1>Contenido Semántico</h1>
+    <!-- Form for semantic analysis -->
+    <div class="form-container">
       <form method="post">
         <!-- Textarea for user input -->
         <div class="form-group">
-          <label for="lexicalInput">Texto para Analizar:</label>
-          <textarea class="form-control" id="lexicalInput" name="lexicalInput" rows="4"></textarea>
+          <label for="semanticInput">Texto para Analizar:</label>
+          <textarea class="form-control" id="semanticInput" name="semanticInput" rows="4"></textarea>
         </div>
         <!-- Button for analysis -->
         <input type="submit" class="btn btn-primary" id="exampleInputSubmit" value="Analizar">
@@ -63,13 +61,12 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
             <div class="result-container">
                 <p class="mb-1"><strong>Expresión:</strong> {{ expresion }}</p>
             </div>
-        {% endif %}
-        {% if caracteres_no_reconocidos %}
-            <div class="error-container">
-                <p style="color: red;" class="mb-1"><strong>Error de sintaxis. Caracteres no reconocidos:</strong> {{ caracteres_no_reconocidos }}</p>
+            <div class="result-container" style="color: {% if sentimiento == '1 star' %}red{% elif sentimiento == '2 stars' %}brown{% elif sentimiento == '3 stars' %}orange{% elif sentimiento == '4 stars' %}yellow{% elif sentimiento == '5 stars' %}green{% endif %}">
+            <div class="result-container">
+                <p class="mb-1"><strong>Sentimiento:</strong> {{ sentimiento }}</p>
             </div>
+
         {% endif %}
-    </div>
     </div>
   </div>
   <!-- Bootstrap JavaScript dependencies -->

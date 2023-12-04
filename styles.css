@@ -1,0 +1,9 @@
+body {
+    font-family: 'Inter', Monospaced;
+}
+.result-container {
+    margin-top: 20px;
+}
+.error-container {
+    margin-top: 20px;
+}

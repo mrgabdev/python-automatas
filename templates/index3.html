@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Mi Aplicación con Bootstrap desde CDN</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Barra de navegación Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index3.html">Autómatas II</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="automatas-link">Autómatas II</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="semantico-link">Analizador Semántico</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="sintactico-link">Analizador Sintáctico</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenedores para mostrar contenido dinámico -->
+    <div id="automatas-content" class="contenido">
+        <h1>{{ title }}</h1>
+        <form class="form-inline" method="post">
+            <label for="codigoFuente" class="mr-2">Ingresa la cadena:</label>
+            <div class="input-group">
+                <textarea class="form-control" id="codigoFuente" name="codigoFuente" rows="3"></textarea>
+                <button type="submit" class="btn btn-primary">Analizar</button>
+            </div>
+            <div class="input-group-append">
+                {% if codigoAnalizado %}
+                    <h2 style="color: red"><i>Codigo fuente analizado: {{ codigoAnalizado }}</i></h2>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+    <div id="semantico-content" class="contenido">
+        <h1>Contenido del Analizador Semántico</h1>
+    </div>
+    <div id="sintactico-content" class="contenido">
+        <h1>Contenido del Analizador Sintáctico</h1>
+        <form class="form-inline" method="post">
+            <label for="codigoFuenteSintactico" class="mr-2">Ingresa la cadena:</label>
+            <div class="input-group">
+                <textarea class="form-control" id="codigoFuenteSintactico" name="codigoFuenteSintactico" rows="3"></textarea>
+                <button type="submit" class="btn btn-primary">Analizar</button>
+            </div>
+            <div class="input-group-append">
+                {% if resultadoSintactico %}
+                    <h2 style="color: blue"><i>Resultado sintáctico: {{ resultadoSintactico }}</i></h2>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        // Obtener los enlaces de la barra de navegación
+        const automatasLink = document.getElementById('automatas-link');
+        const semanticoLink = document.getElementById('semantico-link');
+        const sintacticoLink = document.getElementById('sintactico-link');
+
+        // Obtener los contenedores de contenido dinámico
+        const automatasContent = document.getElementById('automatas-content');
+        const semanticoContent = document.getElementById('semantico-content');
+        const sintacticoContent = document.getElementById('sintactico-content');
+
+        // Función para cambiar el contenido en respuesta a un clic en el enlace
+        function cambiarContenido(event) {
+            event.preventDefault(); // Evitar que se produzca la navegación estándar
+
+            // Ocultar todos los contenedores de contenido
+            automatasContent.style.display = 'none';
+            semanticoContent.style.display = 'none';
+            sintacticoContent.style.display = 'none';
+
+            // Mostrar el contenedor de contenido correspondiente al enlace clicado
+            if (event.target === automatasLink) {
+                automatasContent.style.display = 'block';
+            } else if (event.target === semanticoLink) {
+                semanticoContent.style.display = 'block';
+            } else if (event.target === sintacticoLink) {
+                sintacticoContent.style.display = 'block';
+            }
+        }
+
+        // Ocultar contenido inicialmente
+        semanticoContent.style.display = 'none';
+        sintacticoContent.style.display = 'none';
+
+        // Agregar oyentes de clic a los enlaces de navegación
+        automatasLink.addEventListener('click', cambiarContenido);
+        semanticoLink.addEventListener('click', cambiarContenido);
+        sintacticoLink.addEventListener('click', cambiarContenido);
+    </script>
+
+</body>
+</html>
